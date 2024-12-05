@@ -7,6 +7,7 @@ import Garage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,11 +31,11 @@ public class RefuelController {
         return "refuel";
     }
 
-    @RequestMapping("/refuel/AllRefuels")
-    public String allRefuels(@RequestParam(name = "carId")long carId,
+    @RequestMapping("/refuel/AllRefuels/{carId}")
+    public String allRefuels(@PathVariable String carId,
                              Model model){
-        model.addAttribute("RefuelsList",secondService.getAllCarRefuel(carId));
-        model.addAttribute("Car",userService.getCar(carId));
+        model.addAttribute("RefuelsList",secondService.getAllCarRefuel(Long.parseLong(carId)));
+        model.addAttribute("Car",userService.getCar(Long.parseLong(carId)));
         return "AllRefuels";
     }
 
@@ -44,6 +45,7 @@ public class RefuelController {
                                Model model){
         secondService.deleteRefuel(refuelId);
         model.addAttribute("RefuelsList",secondService.getAllCarRefuel(carId));
-        return "AllRefuels";
+        model.addAttribute("Car",userService.getCar(carId));
+        return "redirect:AllRefuels/" + carId;
     }
 }

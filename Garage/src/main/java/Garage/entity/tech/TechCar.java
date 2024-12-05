@@ -40,6 +40,11 @@ public class TechCar {
 
     }
 
+    public TechCar(long carId, Map<Integer, String> works) {
+        this.carId = carId;
+        this.works = works;
+    }
+
     public TechCar(long carId, Works work, String date, int kilometrage, int price) {
         this.carId = carId;
         this.work = work;

@@ -92,11 +92,6 @@ public class UserServiceImpl implements UserService{
         carDAO.deleteCar(id);
     }
 
-    @Override
-    @Transactional
-    public void saveSecurityOfNewUser(Authorities authorities) {
-        userDAO.saveSecurityOfNewUser(authorities);
-    }
 
     @Override
     @Transactional
@@ -104,40 +99,10 @@ public class UserServiceImpl implements UserService{
         return userDAO.getAccountInformation(id);
     }
 
-//    @Override
-//    @Transactional
-//    public Map<Integer,String> getTransmitions() {
-//        return carDAO.getTransmitions();
-//    }
-//
-//    @Override
-//    @Transactional
-//    public Map<Integer,String> getEngines() {
-//        return carDAO.getEngines();
-//    }
-//
-//    @Override
-//    @Transactional
-//    public Engine getEngine(int id) {
-//        return carDAO.getEngine(id);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public Transmition getTransmition(int id) {
-//        return carDAO.getTransmition(id);
-//    }
-
     @Override
     @Transactional
     public Map<Integer,String> getAllWorks() {
         return worksDAO.getAllWorks();
-    }
-
-    @Override
-    @Transactional
-    public void saveTech(TechCar techCar) {
-        worksDAO.saveTech(techCar);
     }
 
     @Override
@@ -148,15 +113,25 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public List<TechCar> getAllTechForCar(long id) {
-        return worksDAO.getAllTechForCar(id);
+    public long auth(String login, String password, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        return userDAO.auth(login,password,bCryptPasswordEncoder);
     }
-
-
 
     @Override
     @Transactional
-    public long auth(String login, String password, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        return userDAO.auth(login,password,bCryptPasswordEncoder);
+    public boolean auth(String login) {
+        return userDAO.auth(login);
+    }
+
+    @Override
+    @Transactional
+    public User getUser(String code) {
+        return userDAO.getUser(code);
+    }
+
+    @Override
+    @Transactional
+    public long activateUserAccount(String code) {
+        return userDAO.activateUserAccount(code);
     }
 }

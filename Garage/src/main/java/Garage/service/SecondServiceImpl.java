@@ -34,18 +34,6 @@ public class SecondServiceImpl implements SecondService{
 
     @Override
     @Transactional
-    public void deleteAllRefuelForCar(long carId) {
-        refuelDAO.deleteAllRefuelForCar(carId);
-    }
-
-//    @Override
-//    @Transactional
-//    public void editRefuel(Refuel refuel) {
-//        refuelDAO.editRefuel(refuel);
-//    }
-
-    @Override
-    @Transactional
     public void deleteWork(long workId) {
         worksDAO.deleteWork(workId);
     }

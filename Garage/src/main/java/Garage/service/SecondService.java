@@ -14,8 +14,6 @@ public interface SecondService {
 
     public void deleteRefuel(long refuelId);
 
-    public void deleteAllRefuelForCar(long carId);
-
     public void deleteWork(long workId);
 
     public List<TechCar> getAllCarTech(long carId);

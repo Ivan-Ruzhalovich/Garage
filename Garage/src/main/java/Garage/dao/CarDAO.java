@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface CarDAO {
+
     public void saveCar(Car car);
 
     public List<Car> getAllCars();
@@ -15,12 +16,4 @@ public interface CarDAO {
     public Car getCar(long id);
 
     public void deleteCar(long id);
-
-//    public Map<Integer,String> getTransmitions();
-//
-//    public Map<Integer,String> getEngines();
-//
-//    public Engine getEngine(int id);
-//
-//    public Transmition getTransmition(int id);
 }

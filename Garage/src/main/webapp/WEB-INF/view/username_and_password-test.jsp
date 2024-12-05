@@ -1,9 +1,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>123</title>
+</head>
 <body>
 <h2>User Security</h2>
 <form:form action="saveUser" modelAttribute="NewUser" >
@@ -32,13 +36,13 @@
         <tr>
             <td>Authority:</td>
             <td>
-            <label for="authority">
-                Please choose role
-            </label>
-            <select name="authority" id="authority">
-                <option value="ROLE_USER"> User</option>
-                <option value="ROLE_ADMINISTRATOR"> Administrator</option>
-            </select>
+                <label for="authority">
+                    Please choose role
+                </label>
+                <select name="authority" id="authority">
+                    <option value="ROLE_USER"> User</option>
+                    <option value="ROLE_ADMINISTRATOR"> Administrator</option>
+                </select>
             </td>
         </tr>
 

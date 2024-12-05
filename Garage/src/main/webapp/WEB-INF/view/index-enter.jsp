@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
     <style>
@@ -14,7 +14,7 @@
 </head>
 <body>
 <form:form action="auth" modelAttribute="Message">
-<div class="wrapper">
+    <div class="wrapper">
         <h2>Login</h2>
         <div class="input-field">
             <input type="text" name="login"  autocomplete="off" required>
@@ -37,7 +37,7 @@
             <br>
             <p style="color: red">${Message}</p>
         </div>
-</div>
+    </div>
 </form:form>
 </body>
 </html>

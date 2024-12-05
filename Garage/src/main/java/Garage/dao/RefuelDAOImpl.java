@@ -18,9 +18,9 @@ public class RefuelDAOImpl implements RefuelDAO{
 
     @Override
     public List<Refuel> getAllCarRefuel(long carId) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Refuel where carId = :carId",Refuel.class).
-                setParameter("carId",carId).getResultList();
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Refuel where carId = :carId order by date desc ",Refuel.class)
+                .setParameter("carId",carId).getResultList();
     }
 
     @Override
@@ -31,8 +31,7 @@ public class RefuelDAOImpl implements RefuelDAO{
 
     @Override
     public void deleteAllRefuelForCar(long carId) {
-        Session session = sessionFactory.getCurrentSession();
-        session.createQuery("delete from Refuel where carId = :carId")
+        sessionFactory.getCurrentSession().createQuery("delete from Refuel where carId = :carId")
                 .setParameter("carId",carId);
     }
 }

@@ -8,6 +8,7 @@ import Garage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,17 +29,10 @@ public class WorksController {
         return "addTechCar";
     }
 
-    @RequestMapping("/works/carInfo")
-    public String getCarInfo(@RequestParam(name = "carId")long carId,Model model){
-        model.addAttribute("carInfo",new CarInfo(userService.getCar(carId)));
-        return "Old/carInfo";
-    }
-
-    @RequestMapping("/works/allTechCar")
-    public String getListCarWorks (@RequestParam(name = "carId")long carId,
-                                   Model model){
-        model.addAttribute("WorksList",userService.getCar(carId).getTechs());
-        model.addAttribute("Car",userService.getCar(carId));
+    @RequestMapping("/works/allTechCar/{carId}")
+    public String getListCarWorks (@PathVariable String carId, Model model){
+        model.addAttribute("WorksList",secondService.getAllCarTech(Long.parseLong(carId)));
+        model.addAttribute("Car",userService.getCar(Long.parseLong(carId)));
         return "AllTechs";
     }
 
@@ -46,10 +40,9 @@ public class WorksController {
     public String deleteWork (@RequestParam(name = "workId")long workId,
                               @RequestParam(name = "carId")long carId,
                               Model model){
-        System.out.println(workId);
         secondService.deleteWork(workId);
         model.addAttribute("Car",userService.getCar(carId));
         model.addAttribute("WorksList",secondService.getAllCarTech(carId));
-        return "AllTechs";
+        return "redirect:/works/allTechCar/" + carId;
     }
 }

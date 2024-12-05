@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface RefuelDAO {
 
-
     public void deleteRefuel(long refuelId);
 
     public void deleteAllRefuelForCar(long carId);

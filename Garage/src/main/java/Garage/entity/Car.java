@@ -1,11 +1,15 @@
 package Garage.entity;
 
+import Garage.Classes.CarInfo;
 import Garage.entity.tech.Refuel;
 import Garage.entity.tech.TechCar;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "car")
@@ -38,14 +42,13 @@ public class Car {
     private long userId;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.ALL,targetEntity = TechCar.class, mappedBy = "carId")
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = TechCar.class, mappedBy = "carId")
     private List<TechCar> techs;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(targetEntity = Refuel.class, cascade = CascadeType.ALL,
             mappedBy = "carId")
     private List<Refuel> refuels;
-
 
 
     public Car() {
@@ -148,12 +151,32 @@ public class Car {
         this.refuels = refuels;
     }
 
-    public void addTechToListTech(TechCar techCar){
+    public void addTechToListTech(TechCar techCar) {
         techs.add(techCar);
     }
 
-    public void addRefuelToListRefuel(Refuel refuel){
+    public void addRefuelToListRefuel(Refuel refuel) {
         refuels.add(refuel);
+    }
+
+    public void setAcualityKilometrage() {
+        if (!this.getTechs().isEmpty() && !this.getRefuels().isEmpty()) {
+            this.setKilometrage(Math.max(
+                    Collections.max(this.getRefuels().stream().map(e -> e.getKilometrage())
+                            .collect(Collectors.toList())),
+                    Collections.max(this.getTechs().stream().map(e -> e.getKilometrage())
+                            .collect(Collectors.toList()))));
+        } else if (this.getTechs().isEmpty()&&!this.getRefuels().isEmpty()) {
+            this.setKilometrage(Collections.max(this.getRefuels().stream().map(e -> e.getKilometrage())
+                    .collect(Collectors.toList())));
+        }
+        else if (this.getRefuels().isEmpty()&&!this.getTechs().isEmpty()){
+            this.setKilometrage(Collections.max(this.getTechs().stream().map(e -> e.getKilometrage())
+                    .collect(Collectors.toList())));
+        }
+        else if (this.getTechs().isEmpty() && this.getRefuels().isEmpty()){
+            this.setKilometrage(0);
+        }
     }
 
     @Override

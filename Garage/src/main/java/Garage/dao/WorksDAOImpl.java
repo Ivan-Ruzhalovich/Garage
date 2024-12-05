@@ -19,31 +19,14 @@ public class WorksDAOImpl implements WorksDAO {
 
     @Override
     public Map<Integer,String> getAllWorks() {
-        return sessionFactory.getCurrentSession().createQuery("from Works",Works.class).
-                getResultList().stream()
+        return sessionFactory.getCurrentSession().createQuery("from Works",Works.class)
+                .getResultList().stream()
                 .collect(Collectors.toMap(Works::getId,Works::getDescription));
-    }
-
-    @Override
-    public void saveTech(TechCar techCar) {
-        Session session = sessionFactory.getCurrentSession();
-        Car car = session.get(Car.class,techCar.getCarId());
-        if (techCar.getKilometrage() > car.getKilometrage())
-            car.setKilometrage(techCar.getKilometrage());
-        car.addTechToListTech(techCar);
-        session.saveOrUpdate(car);
     }
 
     @Override
     public Works getWork(int id) {
         return sessionFactory.getCurrentSession().get(Works.class,id);
-    }
-
-    @Override
-    public List<TechCar> getAllTechForCar(long id) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from TechCar where carId = :id",TechCar.class)
-                .setParameter("id",id).getResultList();
     }
 
     @Override
@@ -55,7 +38,7 @@ public class WorksDAOImpl implements WorksDAO {
     @Override
     public List<TechCar> getAllCarTech(long carId) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from TechCar where carId = :carId", TechCar.class)
+                .createQuery("from TechCar where carId = :carId order by date desc ", TechCar.class)
                 .setParameter("carId", carId).getResultList();
     }
 }

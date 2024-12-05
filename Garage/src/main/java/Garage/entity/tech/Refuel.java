@@ -34,6 +34,18 @@ public class Refuel {
     public Refuel() {
     }
 
+    public Refuel(long carId) {
+        this.carId = carId;
+    }
+
+    public Refuel( long carId, String date, float volume, int kilometrage, float price) {
+        this.carId = carId;
+        this.date = date;
+        this.volume = volume;
+        this.kilometrage = kilometrage;
+        this.price = price;
+    }
+
     public Refuel(float price, int kilometrage, float volume, String typeFuel,
                   String date, long carId) {
         this.price = price;

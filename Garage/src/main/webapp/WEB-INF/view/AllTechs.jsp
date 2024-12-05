@@ -1,10 +1,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>
         Works List
     </title>
@@ -18,13 +19,14 @@
 <main>
     <div class="refuel-wrapper">
         <form:form action="#" modelAttribute="Car">
+            <c:url var="backButton" value="/carInfo/${Car.id}"/>
             <c:set var="TotalPrice" scope="page" value="${0}"/>
             <c:forEach var="total" items="${Car.techs}">
                 <p ${TotalPrice = TotalPrice + total.price}></p>
             </c:forEach>
             <div class="line">
                 <div class="buttonBox" style="padding-left: 35px;margin-top: 13px">
-                    <button style="margin-right: 24px" type="button" name="back" onclick="history.back()">Back</button>
+                    <button style="margin-right: 24px" type="button" name="back" onclick="window.location.href='${backButton}'">Back</button>
                 </div>
                 <div class="wrapper-h-info">
                     <div class="card">
@@ -35,7 +37,7 @@
                             </div>
                         </div>
                         <p style="color:#909092 ;font-size: 16px">
-                            <br>
+                                <%--                            <br>--%>
                             Всего потрачено на ремонт и обслуживание:
                                 <fmt:formatNumber type="Number" maxFractionDigits="1" value="${TotalPrice}"/> руб.
                             <br>
@@ -43,7 +45,7 @@
                 </div>
             </div>
         </form:form>
-        <form:form action="/Garage/saveUser" modelAttribute="WorksList">
+        <form:form action="#" modelAttribute="WorksList">
         <div class="line">
             <section class="main-refuelContent">
                 <div class="refuelContainer">
@@ -57,22 +59,30 @@
                         </div>
                         <div class="refuelBox">
                             <div class="r">
-                            <p style="color:#909092" class="hStyle">Дата:<br>${work.date} </p>
+                                <p style="color:#909092" class="hStyle">Дата:<br>${work.date} </p>
                             </div>
                             <div class="r">
-                            <p style="color:#909092" class="hStyle">Тип работы:<br>${work.work.description}  </p>
+                                <p style="color:#909092" class="hStyle">Тип работы:<br>${work.work.description}  </p>
                             </div>
                             <div class="r">
-                            <p style="color:#909092" class="hStyle">Пробег:<br>${work.kilometrage} км  </p>
+                                <p style="color:#909092" class="hStyle">Пробег:<br>${work.kilometrage} км  </p>
                             </div>
                             <p style="color:#909092" class="hStyle">Цена:<br><fmt:formatNumber type="number"
-                                                                                            maxFractionDigits="1"
-                                                                                            value="${work.price}"/> руб</p>
+                                                                                               maxFractionDigits="1"
+                                                                                               value="${work.price}"/> руб</p>
                         </div>
                     </c:forEach>
                 </div>
             </section>
         </div>
+        <section>
+            <div class="box">
+                <c:url var="addNewTechToCar" value="/works/addNewTechToCar">
+                    <c:param name="carId" value="${Car.id}"/>
+                </c:url>
+                <a href="${addNewTechToCar}">Обслужить машину.</a>
+            </div>
+        </section>
     </div>
     </form:form>
 </main>

@@ -20,22 +20,18 @@ public class CarDAOImpl implements CarDAO{
 
     @Override
     public List<Car> getAllCars() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Car",Car.class).getResultList();
-
+        return sessionFactory.getCurrentSession().createQuery("from Car",Car.class).getResultList();
     }
 
     @Override
     public Car getCar(long id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Car.class,id);
+        return sessionFactory.getCurrentSession().get(Car.class,id);
     }
 
     @Override
-    public List<Car> getCarList(long id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Car where userId = :id ",Car.class)
-                .setParameter("id",id).getResultList();
+    public List<Car> getCarList(long userId) {
+        return sessionFactory.getCurrentSession().createQuery("from Car where userId = :userId ",Car.class)
+                .setParameter("userId",userId).getResultList();
     }
 
     @Override
